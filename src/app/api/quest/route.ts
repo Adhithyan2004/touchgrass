@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const preferences = await req.json();
+    const ollamaUrl = process.env.OLLAMA_URL || "http://192.168.29.143:11434";
 
     const prompt = `
 Create ONE short outdoor quest based on these preferences:
@@ -69,7 +70,7 @@ IMPORTANT:
 - steps must contain at least 3 short strings.
 `;
 
-    const response = await fetch("http://192.168.29.143:11434/api/generate", {
+    const response = await fetch(`${ollamaUrl}/api/generate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
