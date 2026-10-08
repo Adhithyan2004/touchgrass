@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const preferences = await req.json();
-    const ollamaUrl = process.env.OLLAMA_URL || "http://192.168.29.143:11434";
+    const ollamaUrl = process.env.OLLAMA_URL;
 
     const prompt = `
 Create ONE short outdoor quest based on these preferences:
