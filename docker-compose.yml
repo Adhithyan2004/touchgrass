@@ -3,9 +3,30 @@ services:
     build: .
     container_name: touchgrass
     restart: unless-stopped
-    ports:
-      - "3001:3000"
     environment:
       OLLAMA_URL: http://host.docker.internal:11434
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - touchgrass_internal
+      - applygrid_default
+
+  touchgrass-nginx:
+    image: nginx:alpine
+    container_name: touchgrass-nginx
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - touchgrass
+    networks:
+      - touchgrass_internal
+      - applygrid_default
+
+networks:
+  touchgrass_internal:
+
+  applygrid_default:
+    external: true
