@@ -1,0 +1,11 @@
+services:
+  touchgrass:
+    build: .
+    container_name: touchgrass
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      OLLAMA_URL: http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
