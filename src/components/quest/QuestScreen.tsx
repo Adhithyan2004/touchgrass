@@ -135,7 +135,7 @@ export default function QuestScreen({ quest, onStart }: QuestScreenProps) {
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
-                  <p className="pt-1 text-sm leading-6 text-[#D2DAD4]">
+                  <p className="pt-1 text-sm leading-6 text-white">
                     {step}
                   </p>
                 </div>
@@ -144,7 +144,7 @@ export default function QuestScreen({ quest, onStart }: QuestScreenProps) {
           </div>
 
           {/* Challenge */}
-          <div className="mt-8 rounded-2xl border border-[#FF4FBF]/15 bg-[#FF4FBF]/[0.05] p-5">
+          <div className="mt-8 rounded-2xl border border-[#FF4FBF]/15 bg-[#FF4FBF]/5 p-5">
             <div className="flex items-center gap-2">
               <span className="text-lg">⚡</span>
 

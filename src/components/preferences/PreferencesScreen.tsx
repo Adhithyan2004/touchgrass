@@ -19,6 +19,7 @@ export default function PreferencesScreen({
   onBack,
   onNext,
 }: PreferencesScreenProps) {
+  const [isGenerating, setIsGenerating] = useState(false);
   const [preferences, setPreferences] = useState<Preferences>({
     time: "30 min",
     mood: "Explore",
@@ -137,37 +138,55 @@ export default function PreferencesScreen({
         {/* Generate */}
         <div className="mt-10 pb-8">
           <button
-            onClick={() => onNext(preferences)}
+            onClick={async () => {
+              setIsGenerating(true);
+              await onNext(preferences);
+              setIsGenerating(false);
+            }}
+            disabled={isGenerating}
             className="
-              group
-              flex
-              w-full
-              items-center
-              justify-center
-              gap-2
-              rounded-2xl
-              bg-[#B7FF4A]
-              px-8
-              py-5
-              text-base
-              font-bold
-              text-[#101A16]
-              transition-all
-              duration-300
-              hover:-translate-y-1
-              hover:bg-[#FF4FBF]
-              hover:shadow-[0_18px_50px_rgba(255,79,191,0.18)]
-              active:translate-y-0
-            "
+      group
+      flex
+      w-full
+      items-center
+      justify-center
+      gap-2
+      rounded-2xl
+      bg-[#B7FF4A]
+      px-8
+      py-5
+      font-bold
+      text-[#101A16]
+      transition-all
+      duration-300
+      hover:-translate-y-1
+      hover:bg-[#FF4FBF]
+      hover:shadow-[0_18px_50px_rgba(255,79,191,0.18)]
+      active:translate-y-0
+      disabled:cursor-wait
+      disabled:opacity-70
+      disabled:hover:translate-y-0
+    "
           >
-            Generate My Quest
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
+            {isGenerating ? (
+              <>
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#101A16]/30 border-t-[#101A16]" />
+                Cooking up your quest...
+              </>
+            ) : (
+              <>
+                Generate My Quest
+                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+              </>
+            )}
           </button>
 
-          <p className="mt-4 text-center text-xs text-[#66756D]">
-            Your choices shape the adventure.
+          <p className="mt-4 text-center text-white">
+            {isGenerating
+              ? "Note : Our AI is running on a potato-powered laptop, so this might take a moment. 🥔"
+              : "Your choices shape the adventure."}
           </p>
         </div>
       </section>
